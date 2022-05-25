@@ -1,27 +1,39 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-</template>
+<style scoped>
+#content {
+    position: fixed;
+    top: 0;
+    width: 100%;
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
-
-@Options({
-  components: {
-    HelloWorld,
-  },
-})
-export default class App extends Vue {}
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    margin-top: 40px;
+    margin-left: 85px;
+    margin-right: 85px;
 }
 </style>
+
+<template>
+    <main-background />
+    <top-bar />
+    <volume-button />
+    <div id="content"></div>
+</template>
+
+<script setup lang="ts">
+import TopBar from "@/components/TopBar.vue";
+import MainBackground from "@/components/MainBackground.vue";
+import VolumeButton from "@/components/VolumeButton.vue";
+import { onMounted } from "vue";
+import wait from "@/utils/wait";
+
+const loop = async () => {
+    await wait(1000);
+
+    document.title = "EVA"
+        .split("")
+        .map((c) => (Math.random() < 0.5 ? c : "_"))
+        .join("");
+
+    loop();
+};
+
+onMounted(loop);
+</script>

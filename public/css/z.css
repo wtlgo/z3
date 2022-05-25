@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "z";
+    src: url("fonts/z.eot?2m1fjx");
+    src: url("fonts/z.eot?2m1fjx#iefix") format("embedded-opentype"),
+        url("fonts/z.ttf?2m1fjx") format("truetype"),
+        url("fonts/z.woff?2m1fjx") format("woff"),
+        url("fonts/z.svg?2m1fjx#z") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: "z" !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-back:before {
+    content: "\e900";
+}
+.icon-chat:before {
+    content: "\e901";
+}
+.icon-down:before {
+    content: "\e902";
+}
+.icon-help:before {
+    content: "\e903";
+}
+.icon-about:before {
+    content: "\e904";
+}
+.icon-sound-off:before {
+    content: "\e905";
+}
+.icon-sound-on:before {
+    content: "\e906";
+}
+.icon-notification:before {
+    content: "\e907";
+}
