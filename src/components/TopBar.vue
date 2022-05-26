@@ -55,9 +55,4 @@ import TopButton from "@/components/TopBarButton.vue";
 import Spacer from "@/components/TopBarSpacer.vue";
 import TopInfo from "@/components/TopBarInfo.vue";
 import logo from "@/assets/eva_logo.svg";
-import { reactive } from "vue";
-
-const img_style = reactive({
-    "background-image": `url(${logo})`,
-});
 </script>
