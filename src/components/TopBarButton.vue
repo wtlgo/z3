@@ -45,16 +45,25 @@
 </style>
 
 <template>
-    <div class="button" :class="buttonClass" @mousedown="onClick">
-        <span v-if="props.icon" class="icon" :class="icon" />
-        <span class="body" v-if="$slots.default">
+    <div
+        :class="store.state.level < 3 && ['button', buttonClass]"
+        @mousedown="onClick"
+    >
+        <span
+            v-if="props.icon"
+            :class="store.state.level < 3 && ['icon', icon]"
+        />
+        <span :class="store.state.level < 3 && 'body'" v-if="$slots.default">
             <slot />
         </span>
     </div>
 </template>
 
 <script setup lang="ts">
-import { defineEmits, defineProps, computed } from "vue";
+import { useStore } from "@/store";
+import { computed } from "vue";
+
+const store = useStore();
 
 const props = defineProps<{ active?: boolean; icon?: string }>();
 

@@ -103,14 +103,14 @@
 
 <template>
     <div>
-        <div class="box">
-            <div class="profile-pic">?</div>
-            <div class="name-progress">
-                <div class="name-level">
-                    <span>Неопознанный И. О.</span>
-                    <span>Ур. {{ level }}</span>
+        <div :class="store.state.level < 3 && 'box'">
+            <div :class="store.state.level < 3 && 'profile-pic'">{{ n }}</div>
+            <div :class="store.state.level < 3 && 'name-progress'">
+                <div :class="store.state.level < 3 && 'name-level'">
+                    <span>{{ name }}</span>
+                    <span>Ур. {{ store.state.level }}</span>
                 </div>
-                <div class="progress-bar">
+                <div :class="store.state.level < 3 && 'progress-bar'">
                     <div class="progress-bar-fill" :style="progress_style" />
                 </div>
             </div>
@@ -119,8 +119,15 @@
             </div>
         </div>
 
-        <div class="register-block">
-            <a class="register-button" @click.prevent href="#">
+        <div
+            :class="store.state.level < 3 && 'register-block'"
+            v-if="!store.state.is_logged_in"
+        >
+            <a
+                :class="store.state.level < 3 && 'register-button'"
+                @click.prevent
+                href="#"
+            >
                 Зарегистрироваться / Войти
             </a>
         </div>
@@ -129,26 +136,18 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
-import wait from "@/utils/wait";
+import { useStore } from "@/store";
 
-const progress = ref(0.1);
+const store = useStore();
+
 const progress_style = computed(() => ({
-    width: `${progress.value}%`,
+    width: `${store.state.exp}%`,
 }));
 
-const level = ref(1);
-const rate = computed(() => 100 * Math.pow(1.5, -level.value));
-
-const loop = async () => {
-    await wait(20 * Math.random());
-    progress.value += Math.random() * rate.value;
-    if (progress.value >= 100) {
-        progress.value = progress.value - 100;
-        level.value += 1;
-    }
-
-    loop();
-};
-
-onMounted(loop);
+const name = computed(() =>
+    store.state.is_logged_in ? store.state.username : "Неопознанный И. О."
+);
+const n = computed(() =>
+    store.state.is_logged_in ? store.state.username[0] : "?"
+);
 </script>

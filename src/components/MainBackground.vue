@@ -14,31 +14,33 @@
         muted
         playsinline
         loop
-        @contextmenu="preventDefaultHandler"
+        @contextmenu.prevent
+        :key="store.state.level"
     >
         <source v-for="(source, id) in sources" :key="id" :src="source" />
     </video>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { useStore } from "@/store";
+import { computed } from "vue";
 
-const preventDefaultHandler = (e: Event) => e.preventDefault();
-
-const is_normal = ref(true);
-const does_dance = ref(Math.random() < 0.0042);
+const store = useStore();
 
 const sources = computed(() => {
-    return does_dance.value
-        ? [
-              require("@/assets/background_video/dance/z.webm"),
-              require("@/assets/background_video/dance/z.mp4"),
-          ]
-        : is_normal.value
+    return store.state.level <= 1
         ? [
               require("@/assets/background_video/z.webm"),
               require("@/assets/background_video/z.mp4"),
           ]
-        : [];
+        : store.state.level == 2
+        ? [
+              require("@/assets/background_video/y.webm"),
+              require("@/assets/background_video/y.mp4"),
+          ]
+        : [
+              require("@/assets/background_video/x.webm"),
+              require("@/assets/background_video/x.mp4"),
+          ];
 });
 </script>

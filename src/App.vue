@@ -1,28 +1,24 @@
-<style scoped>
-#content {
-    position: fixed;
-    top: 0;
-    width: 100%;
-
-    margin-top: 40px;
-    margin-left: 85px;
-    margin-right: 85px;
-}
-</style>
-
 <template>
     <main-background />
-    <top-bar />
     <volume-button />
-    <div id="content"></div>
+    <dialog-bar />
+
+    <top-bar />
+
+    <register-window :active="!store.state.is_logged_in" />
 </template>
 
 <script setup lang="ts">
 import TopBar from "@/components/TopBar.vue";
 import MainBackground from "@/components/MainBackground.vue";
 import VolumeButton from "@/components/VolumeButton.vue";
+import RegisterWindow from "@/components/RegisterWindow.vue";
+import DialogBar from "./components/DialogBar.vue";
 import { onMounted } from "vue";
 import wait from "@/utils/wait";
+import { useStore } from "./store";
+
+const store = useStore();
 
 const loop = async () => {
     await wait(1000);
